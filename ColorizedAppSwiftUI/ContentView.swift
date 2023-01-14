@@ -8,14 +8,47 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var redSliderValue = 0.0
+    @State private var greenSliderValue = 0.0
+    @State private var blueSliderValue = 0.0
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack {
+            Color(.darkGray)
+                .ignoresSafeArea()
+            VStack (spacing: 20) {
+                RectangleColorView(color: .green)
+                
+                HStack{
+                    Text("\(lround(redSliderValue))")
+                        .font(.system(size: 25))
+                        .foregroundColor(.white)
+                    ColorSliderView(value: $redSliderValue)
+                        .accentColor(.red)
+                    
+
+                    
+                    }
+                HStack{
+                    Text("\(lround(greenSliderValue))")
+                        .font(.system(size: 25))
+                        .foregroundColor(.white)
+                    ColorSliderView(value: $greenSliderValue)
+                        .accentColor(.green)
+                }
+                
+                HStack{
+                    Text("\(lround(blueSliderValue))")
+                        .font(.system(size: 25))
+                        .foregroundColor(.white)
+                    ColorSliderView(value: $blueSliderValue)
+                        .accentColor(.blue)
+                }
+                Spacer()
+            }
+            .padding(20)
         }
-        .padding()
     }
 }
 
@@ -23,4 +56,15 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+}
+struct ColorSliderView: View {
+    @Binding var value: Double
+    
+    var body: some View {
+        HStack{
+            Slider(value: $value, in: 0...255, step: 1)
+        
+        }
+    }
+    
 }
