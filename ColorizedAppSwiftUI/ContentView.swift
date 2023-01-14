@@ -52,11 +52,14 @@ struct ContentView: View {
     }
 }
 
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
+
 struct ColorSliderView: View {
     @Binding var value: Double
     
