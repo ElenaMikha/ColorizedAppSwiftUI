@@ -42,7 +42,7 @@ struct ColorSliderView: View {
     var body: some View {
         HStack (spacing: 20) {
             Text("\(lround(value))")
-                .font(.system(size: 25))
+                .font(.system(size: 20))
                 .foregroundColor(.white)
             
             Slider(value: $value, in: 0...255, step: 1)
