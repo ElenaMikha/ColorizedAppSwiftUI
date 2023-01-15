@@ -13,6 +13,10 @@ struct ContentView: View {
     @State private var greenSliderValue = 0.0
     @State private var blueSliderValue = 0.0
     
+    private func setColor() {
+        RectangleColorView (color: Color(red: redSliderValue, green: greenSliderValue, blue: blueSliderValue))
+    }
+    
     var body: some View {
         ZStack {
             Color(.darkGray)
@@ -20,36 +24,24 @@ struct ContentView: View {
             VStack (spacing: 20) {
                 RectangleColorView(color: .green)
                 
-                HStack{
-                    Text("\(lround(redSliderValue))")
-                        .font(.system(size: 25))
-                        .foregroundColor(.white)
-                    ColorSliderView(value: $redSliderValue)
-                        .accentColor(.red)
-                    
-
-                    
-                    }
-                HStack{
-                    Text("\(lround(greenSliderValue))")
-                        .font(.system(size: 25))
-                        .foregroundColor(.white)
-                    ColorSliderView(value: $greenSliderValue)
-                        .accentColor(.green)
-                }
+                ColorSliderView(value: $redSliderValue)
+                    .accentColor(.red)
                 
-                HStack{
-                    Text("\(lround(blueSliderValue))")
-                        .font(.system(size: 25))
-                        .foregroundColor(.white)
-                    ColorSliderView(value: $blueSliderValue)
-                        .accentColor(.blue)
-                }
+                ColorSliderView(value: $greenSliderValue)
+                    .accentColor(.green)
+                
+                ColorSliderView(value: $blueSliderValue)
+                    .accentColor(.blue)
+                
                 Spacer()
+                    .padding(30)
             }
-            .padding(20)
+            .padding(30)
+            
         }
+        
     }
+    
 }
 
 
@@ -59,15 +51,24 @@ struct ContentView_Previews: PreviewProvider {
     }
 }
 
-
 struct ColorSliderView: View {
     @Binding var value: Double
     
+    
     var body: some View {
-        HStack{
+        HStack (spacing: 20) {
+            Text("\(lround(value))")
+                .font(.system(size: 25))
+                .foregroundColor(.white)
+            
             Slider(value: $value, in: 0...255, step: 1)
-        
+            
         }
     }
+    
+}
+
+struct ColorView: View {
+    @Binding var color: Color
     
 }
