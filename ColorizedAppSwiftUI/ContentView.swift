@@ -13,38 +13,22 @@ struct ContentView: View {
     @State private var greenSliderValue = 0.0
     @State private var blueSliderValue = 0.0
     
-    private func setColor() {
-        RectangleColorView (color: Color(red: redSliderValue, green: greenSliderValue, blue: blueSliderValue))
-    }
-    
     var body: some View {
         ZStack {
-            Color(.darkGray)
+            Color(.systemIndigo)
                 .ignoresSafeArea()
             VStack (spacing: 20) {
-                RectangleColorView(color: .green)
-                
-                ColorSliderView(value: $redSliderValue)
-                    .accentColor(.red)
-                
-                ColorSliderView(value: $greenSliderValue)
-                    .accentColor(.green)
-                
-                ColorSliderView(value: $blueSliderValue)
-                    .accentColor(.blue)
+                RectangleColorView(red: redSliderValue, green: greenSliderValue, blue: blueSliderValue)
+                ColorSliderView(value: $redSliderValue, sliderColor: .red)
+                ColorSliderView(value: $greenSliderValue, sliderColor: .green)
+                ColorSliderView(value: $blueSliderValue, sliderColor: .blue)
                 
                 Spacer()
-                    .padding(30)
             }
             .padding(30)
-            
         }
-        
     }
-    
 }
-
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
@@ -53,7 +37,7 @@ struct ContentView_Previews: PreviewProvider {
 
 struct ColorSliderView: View {
     @Binding var value: Double
-    
+    let sliderColor: Color
     
     var body: some View {
         HStack (spacing: 20) {
@@ -62,13 +46,9 @@ struct ColorSliderView: View {
                 .foregroundColor(.white)
             
             Slider(value: $value, in: 0...255, step: 1)
+                .accentColor(sliderColor)
             
         }
     }
-    
 }
 
-struct ColorView: View {
-    @Binding var color: Color
-    
-}
